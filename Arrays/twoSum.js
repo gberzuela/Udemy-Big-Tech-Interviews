@@ -25,6 +25,9 @@ Constraints:
 Brute Force
 
 Try every possible pair of numbers
+
+Time:  O(n^2)
+Space: O(1)
 */
 const twoSum = (nums, target) => {
   for (let i = 0; i < nums.length + 1; i++) {
