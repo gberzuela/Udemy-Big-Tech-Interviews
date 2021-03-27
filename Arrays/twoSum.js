@@ -29,12 +29,32 @@ Try every possible pair of numbers
 Time:  O(n^2)
 Space: O(1)
 */
+// const twoSum = (nums, target) => {
+//   for (let i = 0; i < nums.length + 1; i++) {
+//     const numberToFind = target - nums[i];
+//     for (let j = i + 1; j < nums.length; j++) {
+//       if (numberToFind === nums[j]) return [i, j];
+//     }
+//   }
+
+//   return null;
+// };
+
+/*
+Optimizing
+
+Hash all the numbers that we have seen before
+
+Time:  O(n)
+Space: O(n)
+*/
 const twoSum = (nums, target) => {
-  for (let i = 0; i < nums.length + 1; i++) {
+  const seen = {};
+
+  for (let i = 0; i < nums.length; i++) {
     const numberToFind = target - nums[i];
-    for (let j = i + 1; j < nums.length; j++) {
-      if (numberToFind === nums[j]) return [i, j];
-    }
+    if (seen[numberToFind] !== undefined) return [seen[numberToFind], i];
+    else seen[nums[i]] = i;
   }
 
   return null;
