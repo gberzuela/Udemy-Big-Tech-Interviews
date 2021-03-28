@@ -96,28 +96,34 @@ const trappingRainwater = (heights) => {
 let heights = [0, 1, 0, 2, 1, 0, 3, 1, 0, 1, 2];
 let Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 8 });
+console.log("------------");
 
 // Example 2
 heights = [];
 Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 0 });
+console.log("------------");
 
 // Example 3
 heights = [3];
 Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 0 });
+console.log("------------");
 
 // Example 4
 heights = [3, 4, 4];
 Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 0 });
+console.log("------------");
 
 // Example 5
 heights = [4, 2, 0, 3, 2, 5];
 Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 9 });
+console.log("------------");
 
 // Example 6
 heights = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
 Result = trappingRainwater(heights);
 console.log({ Inputs: { heights }, Result, Expected: 6 });
+console.log("------------");
