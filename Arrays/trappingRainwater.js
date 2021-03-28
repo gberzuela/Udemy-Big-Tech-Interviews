@@ -33,17 +33,19 @@ const trappingRainwater = (heights) => {
     const rightWall = findWall(heights, i, false);
     result += Math.min(leftWall, rightWall) - heights[i];
   }
+
   return result;
 };
 
 const findWall = (heights, index, leftWall) => {
   let start = leftWall ? 0 : index;
   let end = leftWall ? index + 1 : heights.length;
-
   let result = 0;
+
   for (start; start < end; start++) {
     result = Math.max(result, heights[start]);
   }
+
   return result;
 };
 
