@@ -24,51 +24,83 @@ Calculate all possibles areas
 Time:  O(n^2)
 Space: O(1)
 */
+// const containerWithMostWater = (heights) => {
+//   let currentMax = 0;
+
+//   for (let i = 0; i < heights.length - 1; i++) {
+//     for (let j = i + 1; j < heights.length; j++) {
+//       const height = Math.min(heights[i], heights[j]);
+//       const width = j - i;
+//       const currentArea = width * height;
+//       currentMax = Math.max(currentMax, currentArea);
+//     }
+//   }
+
+//   return currentMax;
+// };
+
+/*
+Optimizing
+
+Two pointer: 
+- start at both ends of the input and calculate the area
+- move the pointer with the minimum value
+
+The result is directly related to the minimum value between two elements as well as the width
+If we begin at both ends, moving the lesser of the two and hoping for the next value to be greater
+    is the best way to find a greater area
+
+Time:  O(n)
+Space: O(1)
+*/
 const containerWithMostWater = (heights) => {
   let currentMax = 0;
+  let left = 0;
+  let right = heights.length - 1;
 
-  for (let i = 0; i < heights.length - 1; i++) {
-    for (let j = i + 1; j < heights.length; j++) {
-      const min = Math.min(heights[i], heights[j]);
-      const currentArea = min * (j - i);
-      currentMax = Math.max(currentMax, currentArea);
-    }
+  while (left < right) {
+    const height = Math.min(heights[left], heights[right]);
+    const width = right - left;
+    const currentArea = width * height;
+    currentMax = Math.max(currentMax, currentArea);
+    if (heights[left] < heights[right]) left++;
+    else right--;
   }
-
   return currentMax;
 };
 
 // Example 1
 let heights = [7, 1, 2, 3, 9];
-let result = containerWithMostWater(heights);
-console.log(`Inputs: heights = `, heights);
-console.log("Result: ", result);
-console.log("Expected: 28\n------------");
+let Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 28 });
+console.log("------------");
 
 // Example 2
 heights = [];
-result = containerWithMostWater(heights);
-console.log(`Inputs: heights = `, heights);
-console.log("Result: ", result);
-console.log("Expected: 0\n------------");
+Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 0 });
+console.log("------------");
 
 // Example 3
 heights = [7];
-result = containerWithMostWater(heights);
-console.log(`Inputs: heights = `, heights);
-console.log("Result: ", result);
-console.log("Expected: 0\n------------");
+Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 0 });
+console.log("------------");
 
 // Example 4
 heights = [7, 10];
-result = containerWithMostWater(heights);
-console.log(`Inputs: heights = `, heights);
-console.log("Result: ", result);
-console.log("Expected: 7\n------------");
+Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 7 });
+console.log("------------");
 
 // Example 5
 heights = [6, 9, 3, 4, 5, 8];
-result = containerWithMostWater(heights);
-console.log(`Inputs: heights = `, heights);
-console.log("Result: ", result);
-console.log("Expected: 32\n------------");
+Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 32 });
+console.log("------------");
+
+// Example 6
+heights = [4, 8, 1, 2, 3, 9];
+Result = containerWithMostWater(heights);
+console.log({ Inputs: { heights }, Result, Expected: 32 });
+console.log("------------");
