@@ -58,13 +58,14 @@ const typedOutStrings = (S, T) => {
 	let tPointer = T.length - 1;
 
 	while (sPointer >= 0 || tPointer >= 0) {
-		sPointer = movePointer(S, sPointer);
-		tPointer = movePointer(T, tPointer);
+		if (S[sPointer] === '#') {
+			sPointer = movePointer(S, sPointer);
+		}
+		if (T[tPointer] === '#') {
+			tPointer = movePointer(T, tPointer);
+		}
 
-		const sString = S[sPointer];
-		const tString = T[tPointer];
-
-		if (sString !== tString) return false;
+		if (S[sPointer] !== T[tPointer]) return false;
 
 		sPointer--;
 		tPointer--;
@@ -74,9 +75,15 @@ const typedOutStrings = (S, T) => {
 };
 
 const movePointer = (string, pointer) => {
-	while (string[pointer] === '#') {
-		pointer -= 2;
+	let backspace = 2;
+
+	while (backspace > 0) {
+		pointer--;
+		backspace--;
+
+		if (string[pointer] === '#') backspace += 2;
 	}
+
 	return pointer;
 };
 
@@ -113,4 +120,11 @@ S = 'Ab#z';
 T = 'ab#z';
 Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: false });
+console.log('------------');
+
+// Example 5
+S = 'abc#d';
+T = 'abzz##d';
+Result = typedOutStrings(S, T);
+console.log({ Inputs: { S, T }, Result, Expected: true });
 console.log('------------');
