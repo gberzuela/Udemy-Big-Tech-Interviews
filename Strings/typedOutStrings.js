@@ -25,65 +25,92 @@ Constraints:
 Brute Force
 
 Time:  O(n + m) where n is size of S and m is size of T
-Space: O(n + m) 
+Space: O(n + m)
 */
-const typedOutStrings = (S, T) => {
-  const string1 = process(S.split(""));
-  const string2 = process(T.split(""));
-  return string1 === string2;
-};
+// const typedOutStrings = (S, T) => {
+//   const string1 = process(S.split(""));
+//   const string2 = process(T.split(""));
+//   return string1 === string2;
+// };
 
-const process = (arr) => {
-  return arr
-    .reduce((result, next) => {
-      if (next === "#") result.pop();
-      else result.push(next);
-      return result;
-    }, [])
-    .join("");
-};
+// const process = (arr) => {
+//   return arr
+//     .reduce((result, next) => {
+//       if (next === "#") result.pop();
+//       else result.push(next);
+//       return result;
+//     }, [])
+//     .join("");
+// };
 
 /*
   Optimizing
-  
+
+  Reducing space complexity
+  We don't need to pre process the strings into their final output
+  Iterate through the strings backwards, for every backspace we find, skip two letters then compare
+
   Time:  O()
   Space: O()
   */
-// const typedOutStrings = (S, T) => {
-//     return false
-// }
+const typedOutStrings = (S, T) => {
+	let sPointer = S.length - 1;
+	let tPointer = T.length - 1;
+
+	while (sPointer >= 0 || tPointer >= 0) {
+		sPointer = movePointer(S, sPointer);
+		tPointer = movePointer(T, tPointer);
+
+		const sString = S[sPointer];
+		const tString = T[tPointer];
+
+		if (sString !== tString) return false;
+
+		sPointer--;
+		tPointer--;
+	}
+
+	return true;
+};
+
+const movePointer = (string, pointer) => {
+	while (string[pointer] === '#') {
+		pointer -= 2;
+	}
+	return pointer;
+};
 
 // Example 1
-let S = "ab#z";
-let T = "az#z";
+let S = 'ab#z';
+let T = 'az#z';
 let Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: true });
-console.log("------------");
+console.log('------------');
 
 // Example 2
-S = "abc#d";
-T = "acc#c";
+S = 'abc#d';
+T = 'acc#c';
 Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: false });
-console.log("------------");
+console.log('------------');
 
 // Example 3
-S = "x#y#z#";
-T = "a#";
+S = 'x#y#z#';
+T = 'a#';
 Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: true });
-console.log("------------");
+console.log('------------');
 
 // Example 4
-S = "a###b";
-T = "b";
+S = 'a###b';
+T = 'b';
 Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: true });
-console.log("------------");
+console.log('------------');
 
 // Example 5
-S = "Ab#z";
-T = "ab#z";
+S = 'Ab#z';
+T = 'ab#z';
 Result = typedOutStrings(S, T);
 console.log({ Inputs: { S, T }, Result, Expected: false });
-console.log("------------");
+console.log('------------');
