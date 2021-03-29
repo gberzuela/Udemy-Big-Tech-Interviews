@@ -50,8 +50,8 @@ Space: O(n + m)
   We don't need to pre process the strings into their final output
   Iterate through the strings backwards, for every backspace we find, skip two letters then compare
 
-  Time:  O()
-  Space: O()
+  Time:  O(n + m) where n = S.length and m = T.length
+  Space: O(1)
   */
 const typedOutStrings = (S, T) => {
 	let sPointer = S.length - 1;
