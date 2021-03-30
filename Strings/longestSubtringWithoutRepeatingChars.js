@@ -34,20 +34,53 @@ Time:  O(n^2) where n = s.length
 Space: O(1)
 
 */
+// const longestSubstringWithoutRepeatingChars = (s) => {
+// 	if (s.length < 2) return s.length;
+
+// 	let result = 0;
+
+// 	for (let i = 0; i < s.length; i++) {
+// 		const hash = {};
+// 		for (let j = i; j < s.length; j++) {
+// 			if (hash[s[j]]) break;
+// 			hash[s[j]] = true;
+// 			result = Math.max(result, j - i + 1);
+// 		}
+// 	}
+
+// 	return result;
+// };
+
+/*
+Optimizing
+
+-- Save time with space --
+Sliding window:
+Hash every char we see
+If we come across a char that's already in the hash, keep moving the start pointer until we have a hash of all unique chars
+
+Time:  O(n) where n = s.length
+Space: O(n)
+*/
 const longestSubstringWithoutRepeatingChars = (s) => {
 	if (s.length < 2) return s.length;
-
 	let result = 0;
+	let windowStart = 0;
+	let hash = {};
 
-	for (let i = 0; i < s.length; i++) {
-		const hash = {};
-		for (let j = i; j < s.length; j++) {
-			if (hash[s[j]]) break;
-			hash[s[j]] = true;
-			result = Math.max(result, j - i + 1);
+	for (let windowEnd = 0; windowEnd < s.length; windowEnd++) {
+		const currentChar = s[windowEnd];
+
+		while (hash[currentChar]) {
+			const startChar = s[windowStart];
+			hash[startChar]--;
+			if (!hash[startChar]) delete hash[startChar];
+			windowStart++;
 		}
-	}
 
+		result = Math.max(result, windowEnd - windowStart + 1);
+		hash[currentChar] = 1;
+	}
 	return result;
 };
 
