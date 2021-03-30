@@ -107,15 +107,3 @@ s = 'abcbda';
 Result = longestSubstringWithoutRepeatingChars(s);
 console.log({ Inputs: { s }, Result, Expected: 4 });
 console.log('------------');
-
-// // Example 5
-// s = 'Ab#z';
-// Result = longestSubstringWithoutRepeatingChars(s);
-// console.log({ Inputs: { s }, Result, Expected: false });
-// console.log('------------');
-
-// // Example 5
-// s = 'abc#d';
-// Result = longestSubstringWithoutRepeatingChars(s);
-// console.log({ Inputs: { s }, Result, Expected: true });
-// console.log('------------');
