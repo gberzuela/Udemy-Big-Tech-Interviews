@@ -38,6 +38,33 @@ Space: (n)
 /*
   Two Pointers From Outside
   
+  Time:  O(n)
+  Space: O(1)
+  */
+// const validPalindrome = (s) => {
+//   /*
+//     Regex to process string
+//     [] = group of character to look for
+//     ^ capture everything not in the group
+//     What this does specifically? Replace any symbol (not alphanumeric) with an empty string
+//   */
+//   s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+
+//   let left = 0;
+//   let right = s.length - 1;
+
+//   while (left < right) {
+//     if (s[left] !== s[right]) return false;
+//     left++;
+//     right--;
+//   }
+
+//   return true;
+// };
+
+/*
+  Two Pointers From Center
+  
   Time:  O()
   Space: O()
   */
@@ -49,28 +76,17 @@ const validPalindrome = (s) => {
     What this does specifically? Replace any symbol (not alphanumeric) with an empty string 
   */
   s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+  let p1 = Math.floor(s.length / 2);
+  let p2 = s.length % 2 ? p1 : p1 - 1;
 
-  let left = 0;
-  let right = s.length - 1;
-
-  while (left < right) {
-    if (s[left] !== s[right]) return false;
-    left++;
-    right--;
+  while (p1 < s.length) {
+    if (s[p1] !== s[p2]) return false;
+    p1++;
+    p2--;
   }
 
   return true;
 };
-
-/*
-  Two Pointers From Center
-  
-  Time:  O()
-  Space: O()
-  */
-// const validPalindrome = (s) => {
-//     return false
-// }
 
 // Example 1
 let s = "aabaa";
