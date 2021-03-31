@@ -14,7 +14,7 @@ Given a string, determine if it is a palindrome, considering only alphanumeric c
 Palindrome Compare Against Reverse
 
 Time:  O(n)
-Space: (n)
+Space: O(n)
 */
 // const validPalindrome = (s) => {
 //   /*
