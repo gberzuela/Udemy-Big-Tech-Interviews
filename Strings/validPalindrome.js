@@ -65,8 +65,8 @@ Space: (n)
 /*
   Two Pointers From Center
   
-  Time:  O()
-  Space: O()
+  Time:  O(n)
+  Space: O(1)
   */
 const validPalindrome = (s) => {
   /*
