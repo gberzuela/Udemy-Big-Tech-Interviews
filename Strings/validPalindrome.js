@@ -7,7 +7,7 @@ Given a string, determine if it is a palindrome, considering only alphanumeric c
 /**
  *
  * @param {*} s
- * @returns
+ * @returns a boolean determining is s is a palindrome
  */
 
 /*
