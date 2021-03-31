@@ -16,6 +16,31 @@ Palindrome Compare Against Reverse
 Time:  O(n)
 Space: (n)
 */
+// const validPalindrome = (s) => {
+//   /*
+//     Regex to process string
+//     [] = group of character to look for
+//     ^ capture everything not in the group
+//     What this does specifically? Replace any symbol (not alphanumeric) with an empty string
+//   */
+//   s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+//   const reverse = s.split("").reverse().join("");
+
+//   if (s.length !== reverse.length) return false;
+
+//   for (let i = 0; i < s.length; i++) {
+//     if (s[i] !== reverse[i]) return false;
+//   }
+
+//   return true;
+// };
+
+/*
+  Two Pointers From Outside
+  
+  Time:  O()
+  Space: O()
+  */
 const validPalindrome = (s) => {
   /*
     Regex to process string
@@ -24,26 +49,18 @@ const validPalindrome = (s) => {
     What this does specifically? Replace any symbol (not alphanumeric) with an empty string 
   */
   s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
-  const reverse = s.split("").reverse().join("");
 
-  if (s.length !== reverse.length) return false;
+  let left = 0;
+  let right = s.length - 1;
 
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] !== reverse[i]) return false;
+  while (left < right) {
+    if (s[left] !== s[right]) return false;
+    left++;
+    right--;
   }
 
   return true;
 };
-
-/*
-  Two Pointers From Outside
-  
-  Time:  O()
-  Space: O()
-  */
-// const validPalindrome = (s) => {
-//     return false
-// }
 
 /*
   Two Pointers From Center
