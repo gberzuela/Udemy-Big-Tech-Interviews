@@ -1,7 +1,9 @@
 /*
 *Subproblem: a problem we have to solve along the way to solving the main problem
 
-Given a string, determine if it is almost a palindrome. A string is almost a palindrome if it becomes a palindrome by removing 1 letter. Consider only alphanumeric characters and ignore case sensitivity. 
+Given a string, determine if it is almost a palindrome. A string is almost a palindrome if it becomes a palindrome by removing 1 letter. Consider only alphanumeric characters and ignore case sensitivity.
+
+Subproblem: determine if the string or some substring is a palindrome
 
 Constraints:
 - Do we consider a palindrome as almost a palindrome?
@@ -41,27 +43,24 @@ Space: O(1)
 const almostPalindrome = (s) => {
   let deleted = false;
 
-  function checkPalindrome(string) {
-    let left = 0;
-    let right = string.length - 1;
-
-    while (left < right) {
-      if (string[left] !== string[right]) {
+  function checkPalindrome(string, start, end) {
+    while (start < end) {
+      if (string[start] !== string[end]) {
         if (deleted) return false;
         deleted = true;
         return (
-          checkPalindrome(s.slice(left, right)) ||
-          checkPalindrome(s.slice(left + 1, right + 1))
+          checkPalindrome(string, start, end - 1) ||
+          checkPalindrome(string, start + 1, end)
         );
       }
-      left++;
-      right--;
+      start++;
+      end--;
     }
 
     return true;
   }
 
-  return checkPalindrome(s);
+  return checkPalindrome(s, 0, s.length - 1);
 };
 
 // Example 1
