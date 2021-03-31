@@ -15,10 +15,28 @@ Constraints:
  */
 
 /*
-Brute Force
+My solution:
 
-Time:  O()
-Space: ()
+Closure
+
+Declare a variable (deleted) to determine if we have deleted a character already
+Inner function will: 
+    Iterate through the string with two pointers from outside
+        If we come across characters that aren't the same
+            If we have delted a character return false
+            Else
+                deleted = true
+                Recursion: 
+                    Check if the substring without the right pointer is a palindrome
+                    CHeck if the substring without the left pointer is a palindrome
+        Else
+            Increment left
+            Decrement right
+    Return true because we didn't have to delete a character && we didn't find any mismatched characters
+Return inner function call with input "s"
+
+Time:  O(n)
+Space: O(1)
 */
 const almostPalindrome = (s) => {
   let deleted = false;
@@ -45,16 +63,6 @@ const almostPalindrome = (s) => {
 
   return checkPalindrome(s);
 };
-
-/*
-  Optimizing
-  
-  Time:  O()
-  Space: O()
-  */
-// const almostPalindrome = (s) => {
-//     return false
-// }
 
 // Example 1
 let s = "raceacar";
