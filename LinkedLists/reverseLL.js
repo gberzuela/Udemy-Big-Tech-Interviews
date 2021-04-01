@@ -34,15 +34,6 @@ const reverseLL = (head) => {
   return prev;
 };
 
-/*
-  
-  Time:  O()
-  Space: O()
-  */
-// const reverseLL = (head) => {
-//     return false
-// }
-
 // Example 1
 let head = new ListNode(1);
 const LL2 = new ListNode(2);
