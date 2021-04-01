@@ -12,7 +12,7 @@ Constraints:
 
 /**
  *
- * @param {*} s
+ * @param {String} s
  * @returns a boolean determining if "s" is almost a palindrome
  */
 
