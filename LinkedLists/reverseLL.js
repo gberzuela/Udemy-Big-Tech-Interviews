@@ -64,13 +64,3 @@ console.log({ Inputs: head });
 Result = reverseLL(head);
 console.log({ Result, Expected: null });
 console.log("------------");
-
-// // Example 4
-// Result = reverseLL(head);
-// console.log({ Inputs: { head }, Result, Expected: 0 });
-// console.log("------------");
-
-// // Example 5
-// Result = reverseLL(head);
-// console.log({ Inputs: { head }, Result, Expected: 0 });
-// console.log("------------");
