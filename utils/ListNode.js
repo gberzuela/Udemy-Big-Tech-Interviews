@@ -3,4 +3,8 @@ module.exports = class ListNode {
     this.value = value;
     this.next = next;
   }
+
+  update(next) {
+    this.next = next;
+  }
 };
