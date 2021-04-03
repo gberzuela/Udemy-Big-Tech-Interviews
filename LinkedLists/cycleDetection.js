@@ -25,14 +25,54 @@ Return false otherwise
 Time:  O(n)
 Space: O(n)
 */
-const cycleDetection = (head) => {
-  let current = head;
-  const seen = new Set(); // An array of unique values
+// const cycleDetection = (head) => {
+//   let current = head;
+//   const seen = new Set(); // An array of unique values
 
-  while (current) {
-    if (seen.has(current)) return current;
-    seen.add(current);
-    current = current.next;
+//   while (current) {
+//     if (seen.has(current)) return current;
+//     seen.add(current);
+//     current = current.next;
+//   }
+
+//   return false;
+// };
+
+/*
+Floyd's Tortoise And Hare Algo
+
+Initialize two pointers
+- Fast: moves 2 nodes at a time
+- Slow: moves 1 node at a time
+Iterate through the list
+- If the two pointers ever overlap, then we know there is a cycle
+  - Intialize another pointer
+  - Move the new pointer through the list from the beginning
+  - Move the slow pointer from it's current position
+  - Where these two meet is the beginning of the cycle, return the node
+Return false
+
+Time:  O(n)
+Space: O(1)
+*/
+const cycleDetection = (head) => {
+  let fast = head;
+  let slow = head;
+
+  while (fast && fast.next) {
+    fast = fast.next.next;
+    slow = slow.next;
+
+    if (fast === slow) {
+      let current = head;
+
+      while (current !== slow) {
+        current = current.next;
+        slow = slow.next;
+      }
+
+      return current;
+    }
   }
 
   return false;
