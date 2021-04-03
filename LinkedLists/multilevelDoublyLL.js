@@ -34,41 +34,64 @@ If we find a child
 Time:  O(n)
 Space: O(1)
 */
+// const multilevelDoublyLL = (head) => {
+//   let current = head;
+
+//   while (current) {
+//     if (current.child) {
+//       const { next } = current;
+//       let childPointer = current.child;
+
+//       current.next = childPointer;
+//       childPointer.prev = current;
+
+//       while (childPointer.next) {
+//         childPointer = childPointer.next;
+//       }
+
+//       childPointer.next = next;
+//       if (next) next.prev = childPointer;
+//       current.child = null;
+//     }
+
+//     current = current.next;
+//   }
+
+//   return head;
+// };
+
+/*
+Udemy solution
+
+Time:  O(n)
+Space: O(1)
+*/
 const multilevelDoublyLL = (head) => {
-  let current = head;
+  if (!head) return head;
 
-  while (current) {
-    if (current.child) {
-      const { next } = current;
-      let childPointer = current.child;
-
-      current.next = childPointer;
-      childPointer.prev = current;
-
-      while (childPointer.next) {
-        childPointer = childPointer.next;
+  let currentNode = head;
+  while (currentNode !== null) {
+    if (currentNode.child === null) {
+      currentNode = currentNode.next;
+    } else {
+      let tail = currentNode.child;
+      while (tail.next !== null) {
+        tail = tail.next;
       }
 
-      childPointer.next = next;
-      if (next) next.prev = childPointer;
-      current.child = null;
-    }
+      tail.next = currentNode.next;
+      if (tail.next !== null) {
+        tail.next.prev = tail;
+      }
 
-    current = current.next;
+      currentNode.next = currentNode.child;
+      currentNode.next.prev = currentNode;
+      currentNode.child = null;
+    }
   }
 
   return head;
 };
-
-/*
-Optimizing
-
-Time:  O()
-Space: O()
-*/
-// const multilevelDoublyLL = (head) => {
-//     return false
-// }
 
 /*
 makeLists, strLists, and printLists all provided by Karen Fisher
@@ -182,17 +205,9 @@ const printLL = (head) => {
   let result = "";
 
   while (current) {
-    if (current.next) {
-      result += `${current.value}`;
-      result += current.child
-        ? ` [ child: ${printLL(current.child)}] `
-        : " -> ";
-    } else {
-      result += `${current.value}`;
-      result += current.child
-        ? ` [ child: ${printLL(current.child)}] `
-        : " -> null ";
-    }
+    result += `${current.value}`;
+    result += current.child ? ` [ child: ${printLL(current.child)}] ` : "";
+    result += current.next ? " -> " : "";
     current = current.next;
   }
 
