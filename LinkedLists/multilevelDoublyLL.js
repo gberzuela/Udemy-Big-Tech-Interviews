@@ -40,7 +40,7 @@ const multilevelDoublyLL = (head) => {
       }
 
       childPointer.next = next;
-      next.prev = childPointer;
+      if (next) next.prev = childPointer;
       current.child = null;
     }
 
