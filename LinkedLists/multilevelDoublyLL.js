@@ -21,6 +21,16 @@ Constraints:
 /*
 My solution
 
+Iterate through the LL
+If we find a child
+    Keep reference of currents next pointer
+    Current node's next pointer will now point to the child
+    Child's prev will point to current
+    Iterate to the end of the child to get reference of the end node
+    Last node of child will point to the current pointer's original next node
+    Original next node's prev pointer will point to child's last node
+    Current node's child will be set to null
+
 Time:  O(n)
 Space: O(1)
 */
