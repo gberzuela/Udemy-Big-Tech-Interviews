@@ -60,6 +60,113 @@ Space: O()
 //     return false
 // }
 
+/*
+makeLists, strLists, and printLists all provided by Karen Fisher
+repl: https://replit.com/@karencfisher/doublelist#main.py
+
+Given an array [1,2,3,4,5,6,null,null,null,7,8,9,10,null,null,11,12]
+- calling makeLists will transform it into a multileve doubly linked list
+- calling printLists would print to the console:
+    1 -> 2 -> 3 -> 4 -> 5 -> 6        
+        |        
+        7 -> 8 -> 9 -> 10            
+            |            
+            11 -> 12
+
+*Note: seems to only work for structures with only one additional layer
+e.x. CANNOT build 
+    1 -> 2 -> 3 -> 4 -> 5 -> 6
+         |              |
+         7 -> 8 -> 9    10 -> 11
+*/
+const makeLists = (arr) => {
+  let head = null;
+  let prev = null;
+  let i = 0;
+
+  while (i < arr.length) {
+    if (arr[i]) {
+      const newNode = new DoublyListNode(arr[i], null, prev);
+      if (!prev) {
+        head = newNode;
+        prev = newNode;
+      } else {
+        prev.next = newNode;
+        prev = newNode;
+      }
+      i++;
+    } else {
+      let node = head;
+      let end = false;
+      while (!arr[i]) {
+        if (!node.next) end = true;
+        else node = node.next;
+        i++;
+      }
+      if (end) node.child = makeLists(arr.slice(i));
+      else node.prev.child = makeLists(arr.slice(i));
+      break;
+    }
+  }
+
+  return head;
+};
+
+const strLists = (head, lists) => {
+  if (!head) return;
+
+  const nodes = [];
+
+  while (head) {
+    nodes.push(`${head.value}`);
+    if (head.child) {
+      nodes.push("|");
+      strLists(head.child, lists);
+    }
+    head = head.next;
+  }
+
+  lists.push(nodes);
+};
+
+const printLists = (head) => {
+  const lists = [];
+  strLists(head, lists);
+
+  if (!lists.length) return;
+
+  let prevIndent = 0;
+  for (let i = lists.length - 1; i >= 0; i--) {
+    const value = lists[i];
+    let count = -1;
+    let indent = 0;
+    let s = [];
+    let child = 0;
+
+    for (let j = 0; j < value.length; j++) {
+      if (value[j] !== "|") {
+        s.push(value[j]);
+        count++;
+      } else {
+        indent = count * 4;
+        child = count;
+      }
+    }
+
+    console.log(s.join(" -> "));
+    if (lists.length > 1 && i < lists.length) {
+      prevIndent += indent;
+      let indentation = new Array(prevIndent).fill(" ").join("");
+      if (value[0].length > 1) {
+        indentation += new Array(child).fill(" ").join("");
+      }
+      console.log(indentation + "|");
+      process.stdout.write(indentation);
+    }
+  }
+  console.log("");
+};
+
 const printLL = (head) => {
   let current = head;
   let result = "";
@@ -111,39 +218,77 @@ LL11.update(null, LL10);
 LL12.update(LL13);
 LL13.update(null, LL12);
 
-console.log({ Inputs: printLL(head) });
+console.log("Inputs:");
+console.log(printLL(head));
 let Result = multilevelDoublyLL(head);
-console.log({
-  Result: printLL(Result),
-  Expected:
-    "1 -> 2 -> 7 -> 8 -> 10 -> 11 -> 9 -> 3 -> 4 -> 5 -> 12 -> 13 -> 6 -> null",
-});
+console.log("Result:");
+console.log(printLL(Result));
+console.log(
+  "Expected:\n1 -> 2 -> 7 -> 8 -> 10 -> 11 -> 9 -> 3 -> 4 -> 5 -> 12 -> 13 -> 6"
+);
 console.log("------------");
 
-// // Example 2
-// head = "";
-// console.log({ Inputs: head });
-// Result = multilevelDoublyLL(head);
-// console.log({ Result, Expected: LL5 });
-// console.log("------------");
+// Example 2
+let array = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  null,
+  null,
+  null,
+  7,
+  8,
+  9,
+  10,
+  null,
+  null,
+  11,
+  12,
+];
 
-// // Example 3
-// head = "";
-// console.log({ Inputs: head });
-// Result = multilevelDoublyLL(head);
-// console.log({ Result, Expected: LL5 });
-// console.log("------------");
+head = makeLists(array);
+console.log("Inputs:");
+printLists(head);
+Result = multilevelDoublyLL(head);
+console.log("Result:");
+printLists(Result);
+console.log(
+  "Expected:\n1 -> 2 -> 3 -> 7 -> 8 -> 11 -> 12 -> 9 -> 10 -> 4 -> 5 -> 6"
+);
+console.log("------------");
 
-// // Example 4
-// head = "";
-// console.log({ Inputs: head });
-// Result = multilevelDoublyLL(head);
-// console.log({ Result, Expected: LL5 });
-// console.log("------------");
+// Example 3
+array = [
+  1,
+  2,
+  12,
+  null,
+  null,
+  3,
+  4,
+  11,
+  null,
+  null,
+  5,
+  6,
+  10,
+  null,
+  null,
+  7,
+  8,
+  9,
+];
 
-// // Example 5
-// head = "";
-// console.log({ Inputs: head });
-// Result = multilevelDoublyLL(head);
-// console.log({ Result, Expected: LL5 });
-// console.log("------------");
+head = makeLists(array);
+console.log("Inputs:");
+printLists(head);
+Result = multilevelDoublyLL(head);
+console.log("Result:");
+printLists(Result);
+console.log(
+  "Expected:\n1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 "
+);
+console.log("------------");
