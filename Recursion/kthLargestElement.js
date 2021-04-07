@@ -24,8 +24,7 @@ Space: O(k) b/c of k recursive calls
 */
 const kthLargestElement = (nums, k) => {
   nums.sort((a, b) => a - b);
-  if (k === 1) return nums[nums.length - 1];
-  return kthLargestElement(nums.slice(0, nums.length - 1), k - 1);
+  return nums[nums.length - k];
 };
 
 /*
