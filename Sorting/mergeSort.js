@@ -1,29 +1,36 @@
-/**
- *
- * @param {Number[]} array
- */
-
 /*
 Divide and conquer
 Break up the array until we have arrays of size one
-  ie. array = [6, 5, 3, 1, 8, 7 , 2, 4]
-              [6, 5, 3, 1], [8, 7, 2, 4]
-              [6, 5], [3, 1], [8, 7], [2, 4]
-              [6], [5], [3], [1], [8], [7], [2], [4]
+ie. array = [6, 5, 3, 1, 8, 7 , 2, 4]
+[6, 5, 3, 1], [8, 7, 2, 4]
+[6, 5], [3, 1], [8, 7], [2, 4]
+[6], [5], [3], [1], [8], [7], [2], [4]
 For every pair, merge them in sorted order and continue until we have one array left
-              [5, 6], [1, 3], [7, 8], [2, 4]
-              [1, 3, 5, 6], [2, 4, 7, 8]
-              [1, 2, 3, 4, 5, 6, 7, 8]
+[5, 6], [1, 3], [7, 8], [2, 4]
+[1, 3, 5, 6], [2, 4, 7, 8]
+[1, 2, 3, 4, 5, 6, 7, 8]
 
 
 Time:  O(n*log(n))
 Space: O(n) b/c we are breaking an array of size n into n arrays of size 1
 */
+
+/**
+ *
+ * @param {Number[]} array
+ * @returns an array with two elements; left half of "array" and right half of "array"
+ */
 const split = (array) => {
   const mid = Math.floor(array.length / 2);
   return [array.slice(0, mid), array.slice(mid)];
 };
 
+/**
+ *
+ * @param {Number[]} array1 sorted array of numbers
+ * @param {Number[]} array2 sorted array of numbers
+ * @returns array1 and array2 merged in sorted order
+ */
 const merge = (array1, array2) => {
   const result = [];
   let p1 = 0;
@@ -42,6 +49,10 @@ const merge = (array1, array2) => {
   return result.concat(array1.slice(p1)).concat(array2.slice(p1));
 };
 
+/**
+ * @param {Number[]} array
+ * @returns sorted array
+ */
 const mergeSort = (array) => {
   if (array.length <= 1) return array;
   const [left, right] = split(array);
