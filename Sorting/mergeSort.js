@@ -20,7 +20,6 @@ Time:  O(n*log(n))
 Space: O(n) b/c we are breaking an array of size n into n arrays of size 1
 */
 const split = (array) => {
-  if (array.length <= 1) return array;
   const mid = Math.floor(array.length / 2);
   return [array.slice(0, mid), array.slice(mid)];
 };
@@ -44,7 +43,7 @@ const merge = (array1, array2) => {
 };
 
 const mergeSort = (array) => {
-  if (array.length === 1) return array;
+  if (array.length <= 1) return array;
   const [left, right] = split(array);
   return merge(mergeSort(left), mergeSort(right));
 };
