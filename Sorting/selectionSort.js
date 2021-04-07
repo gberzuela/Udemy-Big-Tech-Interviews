@@ -1,14 +1,14 @@
-/**
- *
- * @param {Number[]} array
- */
-
 /*
 Scans the array for the smallest element and swaps it with the next earliest position
 
 Time:  O(n^2)
 Space: O(1)
 */
+
+/**
+ *
+ * @param {Number[]} array
+ */
 const selectionSort = (array) => {
   for (let i = 0; i < array.length - 1; i++) {
     let minIndex = i;

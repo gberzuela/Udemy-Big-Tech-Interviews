@@ -1,8 +1,3 @@
-/**
- *
- * @param {Number[]} array
- */
-
 /*
 Compare an element with every other element.
 Swap elements if the previous element is greater
@@ -10,6 +5,11 @@ Swap elements if the previous element is greater
 Time:  O(n^2)
 Space: O(1)
 */
+
+/**
+ *
+ * @param {Number[]} array
+ */
 const bubbleSort = (array) => {
   for (let i = 0; i < array.length; i++) {
     for (let j = 0; j < array.length - 1; j++) {

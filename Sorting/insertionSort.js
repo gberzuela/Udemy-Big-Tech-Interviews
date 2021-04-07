@@ -1,8 +1,3 @@
-/**
- *
- * @param {Number[]} array
- */
-
 /*
 Useful for almost sorted lists
 For every element, find where it belongs and insert it
@@ -12,6 +7,11 @@ In the example below, we basically bubble down the number in its correct positio
 Time:  O(n^2) => can be O(n) for sorted lists
 Space: O(1)
 */
+
+/**
+ *
+ * @param {Number[]} array
+ */
 // const insertionSort = (array) => {
 //   for (let i = 1; i < array.length; i++) {
 //     let j = i;
