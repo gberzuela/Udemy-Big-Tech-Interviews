@@ -13,7 +13,7 @@ const selectionSort = (array) => {
   for (let i = 0; i < array.length - 1; i++) {
     let minIndex = i;
     for (let j = i + 1; j < array.length; j++) {
-      minIndex = array[minIndex] > array[j] ? j : minIndex;
+      if (array[minIndex] > array[j]) minIndex = j;
     }
     let swap = array[minIndex];
     array[minIndex] = array[i];
