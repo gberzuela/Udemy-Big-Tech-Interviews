@@ -1,3 +1,5 @@
+const quickSort = require("../Sorting/quickSort");
+
 /*
 
 Given an unsorted array, return the kth largest element. It is the kth largest element in sorted order, not the kth distinct element.
@@ -15,27 +17,13 @@ Constraints:
  */
 
 /*
-My solution
-
-Sort the 
-
 Time:  O(n*log(n)) b/c of sorting
-Space: O(k) b/c of k recursive calls
+Space: O(log(n)) b/c of quickSort recursive calls
 */
 const kthLargestElement = (nums, k) => {
-  nums.sort((a, b) => a - b);
+  quickSort(nums, 0, nums.length - 1);
   return nums[nums.length - k];
 };
-
-/*
-  Optimizing
-  
-  Time:  O()
-  Space: O()
-  */
-// const kthLargestElement = (nums, k) => {
-//     return false
-// }
 
 // Test 1
 let nums = [5, 3, 1, 6, 4, 2];
@@ -57,17 +45,3 @@ k = 1;
 Result = kthLargestElement(nums, k);
 console.log({ Inputs: { nums, k }, Result, Expected: 3 });
 console.log("------------");
-
-// // Test 4
-// nums = ;
-// k = ;
-// Result = kthLargestElement(nums, k);
-// console.log({ Inputs: { nums, k }, Result, Expected: 0 });
-// console.log("------------");
-
-// // Test 5
-// nums = ;
-// k = ;
-// Result = kthLargestElement(nums, k);
-// console.log({ Inputs: { nums, k }, Result, Expected: 0 });
-// console.log("------------");
