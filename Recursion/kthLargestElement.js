@@ -32,6 +32,10 @@ Find kth SMALLEST element in an unordered list
 Knowing the index to find (nums.length - k), allows us to utitlize quickSelect
 quickSelect is pretty much quickSort but we stop sorting if we ever move the pivot
   to our desired index
+
+Worst Time:  O(n^2)
+Average Time: O(n)
+Space: O(1) b/c of tail call optimization
 */
 const kthLargestElement = (nums, k) => {
 	const { length } = nums;
