@@ -25,7 +25,7 @@ class BinaryTree {
 
     while (queue.length) {
       const { value, left, right } = queue.shift();
-      console.log(value);
+      process.stdout.write(`${value} `);
       if (left) queue.push(left);
       if (right) queue.push(right);
     }
@@ -40,21 +40,21 @@ class BinaryTree {
   - Can be slower
   */
   dfsPreOrder() {
-    console.log(this.value);
+    process.stdout.write(`${this.value} `);
     if (this.left) this.left.dfsPreOrder();
     if (this.right) this.right.dfsPreOrder();
   }
 
   dfsInOrder() {
     if (this.left) this.left.dfsInOrder();
-    console.log(this.value);
+    process.stdout.write(`${this.value} `);
     if (this.right) this.right.dfsInOrder();
   }
 
   dfsPostOrder() {
     if (this.left) this.left.dfsPostOrder();
     if (this.right) this.right.dfsPostOrder();
-    console.log(this.value);
+    process.stdout.write(`${this.value} `);
   }
 }
 
@@ -69,29 +69,29 @@ let root = new BinaryTree(9);
 */
 
 // Traversal Test 1
-console.log("BFS Result:");
+process.stdout.write("BFS Result: ");
 root.bfs();
-console.log("------------\nExpected:\n9\n4\n20\n1\n6\n15\n170");
+console.log("\nExpected: 9 4 20 1 6 15 170");
 
 console.log("------------");
 
 // Traversal Test 2
-console.log("DFS (Pre) Result:");
+process.stdout.write("DFS (Pre) Result: ");
 root.dfsPreOrder();
-console.log("------------\nExpected:\n9\n4\n1\n6\n20\n15\n170");
+console.log("\nExpected: 9 4 1 6 20 15 170");
 
 console.log("------------");
 
 // Traversal Test 3
-console.log("DFS (In) Result:");
+process.stdout.write("DFS (In) Result: ");
 root.dfsInOrder();
-console.log("------------\nExpected:\n1\n4\n6\n9\n15\n20\n170");
+console.log("\nExpected: 1 4 6 9 15 20 170");
 
 console.log("------------");
 
 // Traversal Test 3
-console.log("DFS (Post) Result:");
+process.stdout.write("DFS (Post) Result: ");
 root.dfsPostOrder();
-console.log("------------\nExpected:\n1\n6\n4\n15\n170\n20\n9");
+console.log("\nExpected: 1 6 4 15 170 20 9");
 
 module.exports = BinaryTree;
