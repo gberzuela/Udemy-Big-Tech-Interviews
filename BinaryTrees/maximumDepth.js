@@ -77,13 +77,13 @@ const maximumDepth = (root, currentDepth = 0) => {
 // Prints a Binary Tree through BFS
 // Indicates the nodes value as well as what side it's on
 const printBinaryTree = (root) => {
-  let stack = [[root, "root"]];
+  let queue = [[root, "root"]];
 
-  while (stack.length) {
-    const [current, side] = stack.pop();
+  while (queue.length) {
+    const [current, side] = queue.shift();
     console.log(current.value, side);
-    if (current.left) stack.push([current.left, "left"]);
-    if (current.right) stack.push([current.right, "right"]);
+    if (current.left) queue.push([current.left, "left"]);
+    if (current.right) queue.push([current.right, "right"]);
   }
 };
 
@@ -102,6 +102,7 @@ let root = new BinaryTree(5);
     4
 */
 let Result = maximumDepth(root);
+printBinaryTree(root);
 console.log({ Inputs: { root }, Result, Expected: 5 });
 console.log("------------");
 
