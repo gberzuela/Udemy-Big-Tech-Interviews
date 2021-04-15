@@ -68,30 +68,30 @@ let root = new BinaryTree(9);
  1  6 15  170
 */
 
-// Traversal Test 1
-process.stdout.write("BFS Result: ");
-root.bfs();
-console.log("\nExpected: 9 4 20 1 6 15 170");
+// // Traversal Test 1
+// process.stdout.write("BFS Result: ");
+// root.bfs();
+// console.log("\nExpected: 9 4 20 1 6 15 170");
 
-console.log("------------");
+// console.log("------------");
 
-// Traversal Test 2
-process.stdout.write("DFS (Pre) Result: ");
-root.dfsPreOrder();
-console.log("\nExpected: 9 4 1 6 20 15 170");
+// // Traversal Test 2
+// process.stdout.write("DFS (Pre) Result: ");
+// root.dfsPreOrder();
+// console.log("\nExpected: 9 4 1 6 20 15 170");
 
-console.log("------------");
+// console.log("------------");
 
-// Traversal Test 3
-process.stdout.write("DFS (In) Result: ");
-root.dfsInOrder();
-console.log("\nExpected: 1 4 6 9 15 20 170");
+// // Traversal Test 3
+// process.stdout.write("DFS (In) Result: ");
+// root.dfsInOrder();
+// console.log("\nExpected: 1 4 6 9 15 20 170");
 
-console.log("------------");
+// console.log("------------");
 
-// Traversal Test 3
-process.stdout.write("DFS (Post) Result: ");
-root.dfsPostOrder();
-console.log("\nExpected: 1 6 4 15 170 20 9");
+// // Traversal Test 3
+// process.stdout.write("DFS (Post) Result: ");
+// root.dfsPostOrder();
+// console.log("\nExpected: 1 6 4 15 170 20 9");
 
 module.exports = BinaryTree;
