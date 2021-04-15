@@ -32,11 +32,10 @@ Constraints:
 My solution
 BFS
 Base case: if root is null, return []
-Initialize result = []
-Initialize queue = [[root, 0]]
+Initialize result = [] and queue = [[root, 0]]
 - We're going to keep track of the level of each node as a subarray in the queue
 While the queue is not empty
-- Shift a node out
+- Dequeue a node out
     - If our result has an array at that level, push the current nodes value
     - Else, create a new subarray at that index
 - If the current node has a left/right, push a subarray with those nodes and the current nodes level + 1
@@ -44,33 +43,63 @@ While the queue is not empty
 Time:  O(n)
 Space: O(2n) => O(n) b/c our result and queue would contain most of the nodes
 */
+// const levelOrder = (root) => {
+//   if (!root) return [];
+
+//   const result = [];
+//   const queue = [[root, 0]];
+
+//   while (queue.length) {
+//     const [node, level] = queue.shift();
+//     if (result[level]) result[level].push(node.value);
+//     else result[level] = [node.value];
+
+//     if (node.left) queue.push([node.left, level + 1]);
+//     if (node.right) queue.push([node.right, level + 1]);
+//   }
+
+//   return result;
+// };
+
+/*
+Udemy Solution
+BFS: Process all the nodes at a certain level first
+Base case: if root is null, return []
+Initialize result = [] and queue = [root]
+While the queue is not empty
+- Note the length of the queue
+- Initialize a new array
+- While we have no processed the number of nodes === length of queue 
+    - Dequeue a node out and initialize a count
+    - Push current node's children
+- Push new array
+
+Time:  O(n) where n = number of nodes in the BinaryTree
+Space: O(2n) => O(n) b/c our result and queue would contain most of the nodes
+*/
 const levelOrder = (root) => {
   if (!root) return [];
 
-  let result = [];
-  const queue = [[root, 0]];
+  const result = [];
+  const queue = [root];
 
   while (queue.length) {
-    const [node, level] = queue.shift();
-    if (result[level]) result[level].push(node.value);
-    else result[level] = [node.value];
+    const levelValues = [];
+    const length = queue.length;
 
-    if (node.left) queue.push([node.left, level + 1]);
-    if (node.right) queue.push([node.right, level + 1]);
+    for (let i = 0; i < length; i++) {
+      const current = queue.shift();
+      levelValues.push(current.value);
+
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+    }
+
+    result.push(levelValues);
   }
 
   return result;
 };
-
-/*
-  Optimizing
-  
-  Time:  O()
-  Space: O()
-  */
-// const levelOrder = (root) => {
-//     return false
-// }
 
 // Test 1
 let root = new BinaryTree(3);
