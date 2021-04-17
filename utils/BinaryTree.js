@@ -5,11 +5,29 @@ class BinaryTree {
     this.right = right;
   }
 
-  insert(value) {
-    const direction = value < this.value ? "left" : "right";
-    if (this[direction]) this[direction].insert(value);
+  bstInsert(value) {
+    const direction = value <= this.value ? "left" : "right";
+    if (this[direction]) this[direction].bstInsert(value);
     else this[direction] = new BinaryTree(value);
     return this;
+  }
+
+  insert(values) {
+    const queue = [this];
+    let i = 0;
+    while (queue.length > 0) {
+      let current = queue.shift();
+      for (let side of ["left", "right"]) {
+        if (!current[side]) {
+          if (values[i] !== null) {
+            current[side] = new BinaryTree(values[i]);
+          }
+          i++;
+          if (i >= values.length) return this;
+        }
+        if (current[side]) queue.push(current[side]);
+      }
+    }
   }
 
   /*
@@ -59,7 +77,7 @@ class BinaryTree {
 }
 
 let root = new BinaryTree(9);
-[4, 20, 1, 6, 15, 170].forEach((val) => root.insert(val));
+[4, 20, 1, 6, 15, 170].forEach((val) => root.bstInsert(val));
 /*
      9
     / \

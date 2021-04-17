@@ -103,25 +103,24 @@ const levelOrder = (root) => {
 
 // Test 1
 let root = new BinaryTree(3);
-const node6 = new BinaryTree(6);
-const node1 = new BinaryTree(1);
-const node9 = new BinaryTree(9);
-const node2 = new BinaryTree(2);
-const node4 = new BinaryTree(4);
-const node5 = new BinaryTree(5);
-const node8 = new BinaryTree(8);
-
-root.left = node6;
-root.right = node1;
-
-node1.right = node4;
-
-node6.left = node9;
-node6.right = node2;
-
-node9.right = node5;
-
-node5.left = node8;
+root.insert([
+  6,
+  1,
+  9,
+  2,
+  null,
+  4,
+  null,
+  5,
+  null,
+  null,
+  null,
+  null,
+  8,
+  null,
+  null,
+  null,
+]);
 
 let Result = levelOrder(root);
 console.log({
@@ -145,7 +144,7 @@ console.log("------------");
 
 // Test 4
 root = new BinaryTree(1);
-[2, 3, 4, 5].forEach((val) => root.insert(val));
+[2, 3, 4, 5].forEach((val) => root.bstInsert(val));
 Result = levelOrder(root);
 console.log({ Inputs: { root }, Result, Expected: [[1], [2], [3], [4], [5]] });
 console.log("------------");

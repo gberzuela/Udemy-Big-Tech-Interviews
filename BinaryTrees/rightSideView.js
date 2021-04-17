@@ -83,25 +83,24 @@ const rightSideView = (root) => {
 
 // Test 1 - Example from above
 let root = new BinaryTree(1);
-const bt2 = new BinaryTree(2);
-const bt3 = new BinaryTree(3);
-const bt4 = new BinaryTree(4);
-const bt5 = new BinaryTree(5);
-const bt6 = new BinaryTree(6);
-const bt7 = new BinaryTree(7);
-const bt8 = new BinaryTree(8);
-
-root.left = bt2;
-root.right = bt3;
-
-bt2.left = bt4;
-bt2.right = bt5;
-
-bt3.right = bt6;
-
-bt4.right = bt7;
-
-bt7.left = bt8;
+root.insert([
+  2,
+  3,
+  4,
+  5,
+  null,
+  6,
+  null,
+  7,
+  null,
+  null,
+  null,
+  null,
+  8,
+  null,
+  null,
+  null,
+]);
 
 let Result = rightSideView(root);
 console.log({ Input: root, Result, Expected: [1, 3, 6, 7, 8] });
