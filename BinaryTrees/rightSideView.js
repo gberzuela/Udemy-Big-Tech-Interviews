@@ -60,23 +60,48 @@ Optimized level order approach
 Time:  O(n) where n = number of nodes in BinaryTree
 Space: O(n)
 */
+// const rightSideView = (root) => {
+//   if (!root) return [];
 
-const rightSideView = (root) => {
+//   const result = [];
+//   const queue = [root];
+
+//   while (queue.length) {
+//     let current;
+//     const length = queue.length;
+//     for (let i = 0; i < length; i++) {
+//       current = queue.shift();
+//       if (current.left) queue.push(current.left);
+//       if (current.right) queue.push(current.right);
+//     }
+//     result.push(current.value);
+//   }
+
+//   return result;
+// };
+
+/*
+Udemy DFS solution
+- Prioritize right side processing
+- Keep track of node's level
+
+- "Flip DFS" Pre = NRL, In = RNL, Post = RLN
+	- Results for Test 1:
+		- Pre  = [1, 3, 6, 2, 5, 4, 7, 8]
+		- In   = [6, 3, 1, 5, 2, 7, 8, 4]
+		- Post = [6, 3, 5, 8, 7, 4, 2, 1]
+	- We see that pre is closest to the expected solution for Test 1 ([1, 3, 6, 7, 8])
+	- Because we are prioritizing searching the right side, we just need to determine if that level has already been processed
+
+Time:  O(n) where n = number of nodes in BinaryTree
+Space: O(n) if we consider result || O(log(n)) b/c of call stack
+*/
+const rightSideView = (root, result = [], level = 0) => {
   if (!root) return [];
 
-  const result = [];
-  const queue = [root];
-
-  while (queue.length) {
-    let current;
-    const length = queue.length;
-    for (let i = 0; i < length; i++) {
-      current = queue.shift();
-      if (current.left) queue.push(current.left);
-      if (current.right) queue.push(current.right);
-    }
-    result.push(current.value);
-  }
+  if (!result[level]) result[level] = root.value;
+  if (root.right) rightSideView(root.right, result, level + 1);
+  if (root.left) rightSideView(root.left, result, level + 1);
 
   return result;
 };
