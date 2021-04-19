@@ -93,7 +93,7 @@ const printBinaryTree = (root) => {
 
 // Test 1
 let root = new BinaryTree(5);
-[4, 2, 3, 4, 6].forEach((val) => root.bstInsert(val));
+root.insert([4, 6, 2, null, null, null, null, 3, null, 4]);
 /*
     5
    / \
