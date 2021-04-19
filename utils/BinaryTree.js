@@ -6,7 +6,7 @@ class BinaryTree {
   }
 
   bstInsert(value) {
-    const direction = value <= this.value ? "left" : "right";
+    const direction = value < this.value ? "left" : "right";
     if (this[direction]) this[direction].bstInsert(value);
     else this[direction] = new BinaryTree(value);
     return this;
