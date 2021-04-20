@@ -12,6 +12,17 @@ class BinaryTree {
     return this;
   }
 
+  /**
+   * Udemy insert for creating a standard BinaryTree
+   * @param {Number[]} values
+   */
+  /*
+    Input: [1,2,3,null,4,null,5]
+    Result:
+              1
+          2        3
+     null   4  null  5
+  */
   insert(values) {
     const queue = [this];
     let i = 0;
@@ -28,6 +39,14 @@ class BinaryTree {
         if (current[side]) queue.push(current[side]);
       }
     }
+  }
+
+  // Returns a boolean determining if a value is within a BinarySearchTree
+  lookup(value) {
+    if (this.value === value) return true;
+    if (this.left && value < this.value) return this.left.lookup(value);
+    if (this.right && value > this.value) return this.right.lookup(value);
+    return false;
   }
 
   /*
@@ -111,5 +130,21 @@ let root = new BinaryTree(9);
 // process.stdout.write("DFS (Post) Result: ");
 // root.dfsPostOrder();
 // console.log("\nExpected: 1 6 4 15 170 20 9");
+
+// BST Construction Test 1
+/*
+      9
+   /     \
+  4       20
+ / \     /   \
+1   6   15   170
+*/
+// root = new BinaryTree(9);
+// [4, 6, 20, 170, 15, 1].forEach((val) => root.bstInsert(val));
+// console.log("lookup(1):", root.lookup(1));
+// console.log("Expected: true");
+// console.log("------------");
+// console.log("lookup(12):", root.lookup(12));
+// console.log("Expected: false");
 
 module.exports = BinaryTree;
