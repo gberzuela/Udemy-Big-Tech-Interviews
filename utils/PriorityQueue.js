@@ -1,3 +1,5 @@
+// https://www.geeksforgeeks.org/implementation-priority-queue-javascript/
+
 class QueueElement {
 	constructor(value, priority) {
 		this.value = value;
