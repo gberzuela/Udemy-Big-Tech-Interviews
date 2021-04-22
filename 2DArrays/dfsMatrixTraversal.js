@@ -1,9 +1,3 @@
-/*
-
-Constraints:
-- 
-*/
-
 /**
  *
  * @param {Number[][]]} matrix
