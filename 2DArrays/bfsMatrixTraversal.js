@@ -11,16 +11,62 @@ At every node in the matrix, we queue its neighbors to be processed next (up, ri
 Time:  O(row * col)
 Space: O(row * col)
 */
+// const bfsMatrixTraversal = (matrix) => {
+//   if (!matrix.length) return [];
+//   // Up, right, down, left
+//   const directions = [
+//     [-1, 0],
+//     [0, 1],
+//     [1, 0],
+//     [0, -1],
+//   ];
+//   // Adjacency matrix
+//   const seen = new Array(matrix.length)
+//     .fill(0)
+//     .map(() => new Array(matrix[0].length).fill(false));
+
+//   const result = [];
+//   const queue = [[0, 0]];
+
+//   while (queue.length) {
+//     const [row, col] = queue.shift();
+//     if (!seen[row][col]) {
+//       result.push(matrix[row][col]);
+//       seen[row][col] = true;
+
+//       for (let direction of directions) {
+//         const [newRow, newCol] = [row + direction[0], col + direction[1]];
+//         if (
+//           newRow >= 0 &&
+//           newRow < matrix.length &&
+//           newCol >= 0 &&
+//           newCol < matrix[0].length
+//         ) {
+//           queue.push([newRow, newCol]);
+//         }
+//       }
+//     }
+//   }
+
+//   return result;
+// };
+
+/*
+Udemy solution
+
+Time:  O(row * col)
+Space: O(row * col)
+*/
+const directions = [
+  [-1, 0],
+  [0, 1],
+  [1, 0],
+  [0, -1],
+];
+
 const bfsMatrixTraversal = (matrix) => {
   if (!matrix.length) return [];
-  // Up, right, down, left
-  const directions = [
-    [-1, 0],
-    [0, 1],
-    [1, 0],
-    [0, -1],
-  ];
-  // Adjacency matrix
+
   const seen = new Array(matrix.length)
     .fill(0)
     .map(() => new Array(matrix[0].length).fill(false));
@@ -30,21 +76,21 @@ const bfsMatrixTraversal = (matrix) => {
 
   while (queue.length) {
     const [row, col] = queue.shift();
-    if (!seen[row][col]) {
-      result.push(matrix[row][col]);
-      seen[row][col] = true;
 
-      for (let direction of directions) {
-        const [newRow, newCol] = [row + direction[0], col + direction[1]];
-        if (
-          newRow >= 0 &&
-          newRow < matrix.length &&
-          newCol >= 0 &&
-          newCol < matrix[0].length
-        ) {
-          queue.push([newRow, newCol]);
-        }
-      }
+    if (
+      row < 0 ||
+      row >= matrix.length ||
+      col < 0 ||
+      col >= matrix[0].length ||
+      seen[row][col]
+    ) {
+      continue;
+    }
+
+    seen[row][col] = true;
+    result.push(matrix[row][col]);
+    for (let direction of directions) {
+      queue.push([row + direction[0], col + direction[1]]);
     }
   }
 
