@@ -25,7 +25,7 @@ Initialize minutes = -1 (b/c we don't count processing the first set of rotten o
 BFS
 - Process all the current rotting oranges
     - For each rotting orange:
-        - Get all of its fresh orange neighbors and replace them with 0 (empty/do not need to process anymore)
+        - Get all of its fresh orange neighbors and replace them with 2 (they are now rotten)
         - Add the fresh orange coord into queue
         - Decrement the total number of fresh oranges
 - Once we have processed a "level" of rotting oranges, increment the minutes
@@ -48,6 +48,7 @@ const rottingOranges = (grid) => {
   let minutes = -1;
 
   while (rotting.length) {
+    // The number of rotten oranges at a certain "level" to process
     const length = rotting.length;
 
     for (let i = 0; i < length; i++) {
@@ -55,6 +56,8 @@ const rottingOranges = (grid) => {
 
       for (let direction of directions) {
         const [newRow, newCol] = [row + direction[0], col + direction[1]];
+
+        // Check if the new coords are in bounds and if it's a fresh orange
         if (
           newRow >= 0 &&
           newRow < grid.length &&
@@ -62,7 +65,7 @@ const rottingOranges = (grid) => {
           newCol < grid[newRow].length &&
           grid[newRow][newCol] === 1
         ) {
-          grid[newRow][newCol] = 0;
+          grid[newRow][newCol] = 2;
           rotting.push([newRow, newCol]);
           fresh--;
         }
