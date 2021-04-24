@@ -36,7 +36,6 @@ Else, return 0
 Time:  O(row * col)
 Space: O(row * col) worst case is the grid is full of rotten oranges
 */
-
 const directions = [
   [-1, 0],
   [0, 1],
@@ -44,41 +43,108 @@ const directions = [
   [0, -1],
 ];
 
+const ROTTING = 2;
+const FRESH = 1;
+
+// const rottingOranges = (grid) => {
+//   let { rotting, fresh } = countOranges(grid);
+//   let minutes = 0;
+
+//   while (rotting.length) {
+//     // The number of rotten oranges at a certain "level" to process
+//     const length = rotting.length;
+
+//     for (let i = 0; i < length; i++) {
+//       const [row, col] = rotting.shift();
+
+//       for (let direction of directions) {
+//         const [newRow, newCol] = [row + direction[0], col + direction[1]];
+
+//         // Check if the new coords are in bounds and if it's a fresh orange
+//         if (
+//           newRow >= 0 &&
+//           newRow < grid.length &&
+//           newCol >= 0 &&
+//           newCol < grid[newRow].length &&
+//           grid[newRow][newCol] === FRESH
+//         ) {
+//           grid[newRow][newCol] = ROTTING;
+//           rotting.push([newRow, newCol]);
+//           fresh--;
+//         }
+//       }
+//     }
+
+//     minutes++;
+//   }
+
+//   if (fresh) return -1;
+//   if (minutes) return minutes - 1;
+//   return 0;
+// };
+
+/*
+Udemy implementation
+
+Time:  O(row * col)
+Space: O(row * col)
+*/
+
 const rottingOranges = (grid) => {
+  // Base case
+  if (!grid.length) return 0;
+
+  // Get coordinates of all rotting oranges and count all fresh oranges
   let { rotting, fresh } = countOranges(grid);
+
+  // Current number of rotting oranges to process
+  let currentLength = rotting.length;
+
+  // Result
   let minutes = 0;
 
+  // BFS
   while (rotting.length) {
-    // The number of rotten oranges at a certain "level" to process
-    const length = rotting.length;
-
-    for (let i = 0; i < length; i++) {
-      const [row, col] = rotting.shift();
-
-      for (let direction of directions) {
-        const [newRow, newCol] = [row + direction[0], col + direction[1]];
-
-        // Check if the new coords are in bounds and if it's a fresh orange
-        if (
-          newRow >= 0 &&
-          newRow < grid.length &&
-          newCol >= 0 &&
-          newCol < grid[newRow].length &&
-          grid[newRow][newCol] === 1
-        ) {
-          grid[newRow][newCol] = 2;
-          rotting.push([newRow, newCol]);
-          fresh--;
-        }
-      }
+    // If we have processed all the rotting oranges in a given level...
+    if (!currentLength) {
+      // Increment minutes and reset the currentLength to represent the next level
+      minutes++;
+      currentLength = rotting.length;
     }
 
-    minutes++;
+    // Grab the current rotting orange
+    const [currRow, currCol] = rotting.shift();
+    currentLength--;
+
+    // Check it's neighbors (up, right, down, and left)
+    for (let direction of directions) {
+      const [nextRow, nextCol] = [
+        currRow + direction[0],
+        currCol + direction[1],
+      ];
+
+      // Skip if we don't have a valid direction
+      if (
+        nextRow < 0 ||
+        nextRow >= grid.length ||
+        nextCol < 0 ||
+        nextCol >= grid[nextRow].length
+      ) {
+        continue;
+      }
+
+      // If the neighbor is fresh...
+      if (grid[nextRow][nextCol] === FRESH) {
+        // Mark it as rotting, decrement the number of fresh oranges, and push it onto our queue
+        grid[nextRow][nextCol] = ROTTING;
+        fresh--;
+        rotting.push([nextRow, nextCol]);
+      }
+    }
   }
 
   if (fresh) return -1;
-  if (minutes) return minutes - 1;
-  return 0;
+  return minutes;
 };
 
 const countOranges = (grid) => {
@@ -86,23 +152,13 @@ const countOranges = (grid) => {
 
   for (let row = 0; row < grid.length; row++) {
     for (let col = 0; col < grid[row].length; col++) {
-      if (grid[row][col] === 1) result.fresh++;
-      if (grid[row][col] === 2) result.rotting.push([row, col]);
+      if (grid[row][col] === FRESH) result.fresh++;
+      if (grid[row][col] === ROTTING) result.rotting.push([row, col]);
     }
   }
 
   return result;
 };
-
-/*
-  Optimizing
-  
-  Time:  O()
-  Space: O()
-  */
-// const rottingOranges = (grid) => {
-//     return false
-// }
 
 // Test 1
 let grid = [
