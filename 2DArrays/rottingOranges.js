@@ -21,7 +21,7 @@ Udemy solution - My implementation
 Sequential order:
 - Find all rotting oranges
 - Keep track of fresh oranges
-Initialize minutes = -1 (b/c we don't count processing the first set of rotten oranges)
+Initialize minutes = 0
 BFS
 - Process all the current rotting oranges
     - For each rotting orange:
@@ -30,7 +30,8 @@ BFS
         - Decrement the total number of fresh oranges
 - Once we have processed a "level" of rotting oranges, increment the minutes
 If there are fresh oranges left, return -1
-Else, return the minutes
+If minutes have passed, return the minutes - 1
+Else, return 0
 
 Time:  O(row * col)
 Space: O(row * col) worst case is the grid is full of rotten oranges
@@ -77,7 +78,7 @@ const rottingOranges = (grid) => {
 
   if (fresh) return -1;
   if (minutes) return minutes - 1;
-  return minutes;
+  return 0;
 };
 
 const countOranges = (grid) => {
