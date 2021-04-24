@@ -21,9 +21,19 @@ Udemy solution - My implementation
 Sequential order:
 - Find all rotting oranges
 - Keep track of fresh oranges
+Initialize minutes = -1 (b/c we don't count processing the first set of rotten oranges)
+BFS
+- Process all the current rotting oranges
+    - For each rotting orange:
+        - Get all of its fresh orange neighbors and replace them with 0 (empty/do not need to process anymore)
+        - Add the fresh orange coord into queue
+        - Decrement the total number of fresh oranges
+- Once we have processed a "level" of rotting oranges, increment the minutes
+If there are fresh oranges left, return -1
+Else, return the minutes
 
 Time:  O(row * col)
-Space: O(max(row, col)) the largest number of elements in the queue would be the diagonal of the grid
+Space: O(row * col) worst case is the grid is full of rotten oranges
 */
 
 const directions = [
@@ -42,6 +52,7 @@ const rottingOranges = (grid) => {
 
     for (let i = 0; i < length; i++) {
       const [row, col] = rotting.shift();
+
       for (let direction of directions) {
         const [newRow, newCol] = [row + direction[0], col + direction[1]];
         if (
