@@ -45,7 +45,7 @@ const directions = [
 
 const rottingOranges = (grid) => {
   let { rotting, fresh } = countOranges(grid);
-  let minutes = -1;
+  let minutes = 0;
 
   while (rotting.length) {
     // The number of rotten oranges at a certain "level" to process
@@ -75,7 +75,9 @@ const rottingOranges = (grid) => {
     minutes++;
   }
 
-  return fresh ? -1 : minutes;
+  if (fresh) return -1;
+  if (minutes) return minutes - 1;
+  return minutes;
 };
 
 const countOranges = (grid) => {
