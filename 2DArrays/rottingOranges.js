@@ -159,3 +159,9 @@ grid = [[], []];
 Result = rottingOranges(grid);
 console.log({ Inputs: { grid }, Result, Expected: 0 });
 console.log("------------");
+
+// Test 7
+grid = [[2, 1]];
+Result = rottingOranges(grid);
+console.log({ Inputs: { grid }, Result, Expected: 1 });
+console.log("------------");
