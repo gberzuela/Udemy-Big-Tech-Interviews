@@ -30,7 +30,7 @@ BFS
         - Decrement the total number of fresh oranges
 - Once we have processed a "level" of rotting oranges, increment the minutes
 If there are fresh oranges left, return -1
-If minutes have passed, return the minutes - 1
+If minutes have passed, return the minutes - 1 b/c we don't want to count the last "level" of rotting
 Else, return 0
 
 Time:  O(row * col)
