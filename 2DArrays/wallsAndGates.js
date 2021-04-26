@@ -27,6 +27,8 @@ My solution - BFS
 Time:  O(row * col)
 Space: O(row * col) worst case grid is full of gates (our queue would be the same size as input grid)
 */
+
+// Helper variables
 const WALL = -1;
 const GATE = 0;
 const INF = 2147483647;
@@ -84,57 +86,97 @@ My solution - DFS
 Time:  O(row * col)
 Space: O(row * col)
 */
-const wallsAndGates = (grid) => {
-  const gates = findGates(grid);
-  if (!gates.length || gates.lenght === grid.length * grid[0].length)
-    return grid;
+// const wallsAndGates = (grid) => {
+//   const gates = findGates(grid);
+//   if (!gates.length || gates.lenght === grid.length * grid[0].length)
+//     return grid;
 
-  for (let gate of gates) {
-    const seen = new Array(grid.length)
-      .fill(0)
-      .map(() => new Array(grid[0].length).fill(false));
-    dfs(grid, seen, gate, 0);
+//   for (let gate of gates) {
+//     const seen = new Array(grid.length)
+//       .fill(0)
+//       .map(() => new Array(grid[0].length).fill(false));
+//     dfs(grid, seen, gate, 0);
+//   }
+
+//   return grid;
+// };
+
+// Helper function for my solutions
+// const findGates = (grid) => {
+//   const result = [];
+
+//   for (let row = 0; row < grid.length; row++) {
+//     for (let col = 0; col < grid[row].length; col++) {
+//       if (grid[row][col] === GATE) result.push([row, col]);
+//     }
+//   }
+
+//   return result;
+// };
+
+// /**
+//  *
+//  * @param {Number[][]} grid
+//  * @param {Boolean[][]} seen
+//  * @param {Number[]} coords follows [row, col] format
+//  * @param {Number} step indicating how far we've traversed
+//  */
+// const dfs = (grid, seen, coords, step) => {
+//   const [row, col] = coords;
+
+//   if (
+//     row < 0 ||
+//     row >= grid.length ||
+//     col < 0 ||
+//     col >= grid[0].length ||
+//     seen[row][col] ||
+//     grid[row][col] < GATE
+//   )
+//     return;
+
+//   seen[row][col] = true;
+//   grid[row][col] = Math.min(grid[row][col], step);
+//   for (let direction of directions) {
+//     dfs(grid, seen, [row + direction[0], col + direction[1]], step + 1);
+//   }
+// };
+
+/*
+Udemy Solution - DFS
+
+*/
+const wallsAndGates = (grid) => {
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[0].length; col++) {
+      if (grid[row][col] === GATE) {
+        dfs(grid, row, col, 0);
+      }
+    }
   }
 
   return grid;
 };
 
-const findGates = (grid) => {
-  const result = [];
-
-  for (let row = 0; row < grid.length; row++) {
-    for (let col = 0; col < grid[row].length; col++) {
-      if (grid[row][col] === GATE) result.push([row, col]);
-    }
-  }
-
-  return result;
-};
-
 /**
  *
  * @param {Number[][]} grid
- * @param {Boolean[][]} seen
- * @param {Number[]} coords follows [row, col] format
- * @param {Number} step indicating how far we've traversed
+ * @param {Number} row
+ * @param {Number} col
+ * @param {Number} step step indicating how far we've traversed
  */
-const dfs = (grid, seen, coords, step) => {
-  const [row, col] = coords;
-
+const dfs = (grid, row, col, step) => {
   if (
     row < 0 ||
     row >= grid.length ||
     col < 0 ||
     col >= grid[0].length ||
-    seen[row][col] ||
-    grid[row][col] < GATE
+    step > grid[row][col]
   )
     return;
 
-  seen[row][col] = true;
-  grid[row][col] = Math.min(grid[row][col], step);
+  grid[row][col] = step;
   for (let direction of directions) {
-    dfs(grid, seen, [row + direction[0], col + direction[1]], step + 1);
+    dfs(grid, row + direction[0], col + direction[1], step + 1);
   }
 };
 
