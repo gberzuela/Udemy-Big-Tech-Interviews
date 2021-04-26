@@ -14,7 +14,7 @@ Constraints:
  */
 
 /*
-My solution
+My solution - BFS
 - Find the coordinates of each gate
 - If we have no gates, return the grid unchanged
 - BFS: while we have a gate or some path to follow...
@@ -37,34 +37,63 @@ const directions = [
   [0, -1],
 ];
 
+// const wallsAndGates = (grid) => {
+//   const gates = findGates(grid);
+//   if (!gates.length) return grid;
+
+//   while (gates.length) {
+//     const [currRow, currCol] = gates.shift();
+
+//     for (let direction of directions) {
+//       const [newRow, newCol] = [currRow + direction[0], currCol + direction[1]];
+
+//       if (
+//         newRow < 0 ||
+//         newRow >= grid.length ||
+//         newCol < 0 ||
+//         newCol >= grid[newRow].length ||
+//         grid[newRow][newCol] <= 0
+//       )
+//         continue;
+
+//       if (grid[newRow][newCol] === INF) {
+//         gates.push([newRow, newCol]);
+//       }
+
+//       grid[newRow][newCol] = Math.min(
+//         grid[currRow][currCol] + 1,
+//         grid[newRow][newCol]
+//       );
+//     }
+//   }
+
+//   return grid;
+// };
+
+/*
+My solution - DFS
+- Find the coordinates of each gate
+- If we have no gates, return the grid unchanged
+- DFS 
+    - For every gate, create an adjacency matrix
+    - If the coordinates are out of bounds, if we've visited it, or if the cell is a wall, continue
+    - Mark the cell as seen
+    - The cells value will be min(current value, number of steps (recursive calls) we've done)
+    - DFS neighbors
+
+Time:  O(row * col)
+Space: O(row * col)
+*/
 const wallsAndGates = (grid) => {
   const gates = findGates(grid);
-  if (!gates.length) return grid;
+  if (!gates.length || gates.lenght === grid.length * grid[0].length)
+    return grid;
 
-  while (gates.length) {
-    const [currRow, currCol] = gates.shift();
-
-    for (let direction of directions) {
-      const [newRow, newCol] = [currRow + direction[0], currCol + direction[1]];
-
-      if (
-        newRow < 0 ||
-        newRow >= grid.length ||
-        newCol < 0 ||
-        newCol >= grid[newRow].length ||
-        grid[newRow][newCol] <= 0
-      )
-        continue;
-
-      if (grid[newRow][newCol] === INF) {
-        gates.push([newRow, newCol]);
-      }
-
-      grid[newRow][newCol] = Math.min(
-        grid[currRow][currCol] + 1,
-        grid[newRow][newCol]
-      );
-    }
+  for (let gate of gates) {
+    const seen = new Array(grid.length)
+      .fill(0)
+      .map(() => new Array(grid[0].length).fill(false));
+    dfs(grid, seen, gate, 0);
   }
 
   return grid;
@@ -82,15 +111,32 @@ const findGates = (grid) => {
   return result;
 };
 
-/*
-  Optimizing
-  
-  Time:  O()
-  Space: O()
-  */
-// const wallsAndGates = (grid) => {
-//     return false
-// }
+/**
+ *
+ * @param {Number[][]} grid
+ * @param {Boolean[][]} seen
+ * @param {Number[]} coords follows [row, col] format
+ * @param {Number} step indicating how far we've traversed
+ */
+const dfs = (grid, seen, coords, step) => {
+  const [row, col] = coords;
+
+  if (
+    row < 0 ||
+    row >= grid.length ||
+    col < 0 ||
+    col >= grid[0].length ||
+    seen[row][col] ||
+    grid[row][col] < GATE
+  )
+    return;
+
+  seen[row][col] = true;
+  grid[row][col] = Math.min(grid[row][col], step);
+  for (let direction of directions) {
+    dfs(grid, seen, [row + direction[0], col + direction[1]], step + 1);
+  }
+};
 
 // Test 1
 let grid = [
