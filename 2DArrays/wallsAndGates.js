@@ -144,6 +144,8 @@ Space: O(row * col)
 /*
 Udemy Solution - DFS
 
+Time:  O(row * col)
+Space: O(row * col)
 */
 const wallsAndGates = (grid) => {
   for (let row = 0; row < grid.length; row++) {
